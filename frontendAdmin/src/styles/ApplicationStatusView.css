@@ -1,0 +1,121 @@
+.application-status-view {
+  width: 100%;
+  color: #333333;
+}
+
+.status-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.status-card__summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  .status-card__summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.status-card__label {
+  font-weight: 700;
+  color: #374151;
+}
+
+.status-card__value {
+  font-weight: 600;
+  color: #111827;
+}
+
+.status-card__code {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: #f3f4f6;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1e3a8a;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.timeline__heading {
+  margin: 0 0 1rem;
+  color: #333333;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+.timeline {
+  position: relative;
+  margin-left: 1rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid #16a34a;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.timeline__item {
+  position: relative;
+}
+
+.timeline__marker {
+  position: absolute;
+  left: -2.05rem;
+  top: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: #16a34a;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px #16a34a;
+}
+
+.timeline__marker--active {
+  background: #f59e0b;
+  box-shadow: 0 0 0 2px #f59e0b;
+}
+
+.timeline__title {
+  margin: 0 0 0.25rem;
+  color: #111827;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.timeline__title--active {
+  color: #78350f;
+}
+
+.timeline__desc {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.status-card__actions {
+  margin-bottom: 2rem;
+}

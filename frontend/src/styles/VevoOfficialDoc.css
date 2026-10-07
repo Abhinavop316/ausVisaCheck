@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Official VEVO Entitlement Check Document Styling (matches official PDF screenshot)
+   ========================================================================== */
+
+.vevo-official-doc-sheet {
+  width: 100%;
+  max-width: 794px; /* Standard A4 width in 96 DPI */
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 1.45;
+  padding: 40px 48px 36px;
+  box-sizing: border-box;
+}
+
+/* 1. Header */
+.doc-header-center {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.doc-crest-wrapper {
+  margin-bottom: 12px;
+}
+
+.doc-coat-of-arms-logo {
+  height: 48px;
+  width: auto;
+  display: inline-block;
+  object-fit: contain;
+}
+
+/* 2. Main Title */
+.doc-title-block {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.doc-main-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  margin: 0 0 3px 0;
+}
+
+.doc-sub-title {
+  font-size: 13.5px;
+  font-weight: normal;
+  color: #000000;
+  margin: 0;
+}
+
+/* 3. Intro & Legal Text */
+.doc-intro-text {
+  margin-bottom: 16px;
+}
+
+.doc-intro-p {
+  margin: 0 0 10px 0;
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: #000000;
+}
+
+.doc-intro-p.bold-notice {
+  font-weight: bold;
+}
+
+.doc-section-paragraph {
+  margin-bottom: 10px;
+}
+
+.doc-section-heading {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  margin: 8px 0 3px 0;
+}
+
+.doc-text-p {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #111111;
+  margin: 0 0 5px 0;
+}
+
+.doc-link {
+  color: #0000EE;
+  text-decoration: underline;
+}
+
+/* 4. Divider */
+.doc-horizontal-divider {
+  border: none;
+  border-top: 1.5px solid #000000;
+  margin: 16px 0 12px;
+}
+
+/* 5. Result Header */
+.doc-result-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.doc-result-title {
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #000000;
+  margin: 0 0 2px 0;
+}
+
+.doc-result-timestamp {
+  font-size: 9.5px;
+  color: #222222;
+  display: block;
+}
+
+/* 6. Details Table */
+.doc-details-table-wrapper {
+  margin-bottom: 18px;
+}
+
+.doc-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doc-details-table tr {
+  border-bottom: 1px solid transparent;
+}
+
+.doc-cell-label {
+  width: 32%;
+  padding: 3px 0;
+  font-size: 10.5px;
+  color: #000000;
+  vertical-align: top;
+}
+
+.doc-cell-value {
+  width: 68%;
+  padding: 3px 0;
+  font-size: 10.5px;
+  font-weight: normal;
+  color: #000000;
+  vertical-align: top;
+}
+
+/* Conditions list */
+.doc-conditions-section {
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+.doc-conditions-title {
+  font-size: 11.5px;
+  font-weight: bold;
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+}
+
+.doc-conditions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.doc-conditions-table th,
+.doc-conditions-table td {
+  border: 1px solid #CCCCCC;
+  padding: 5px 8px;
+  text-align: left;
+}
+
+.doc-conditions-table th {
+  background-color: #F3F4F6;
+  font-weight: bold;
+}
+
+/* 7. Footer */
+.doc-footer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid #888888;
+  padding-top: 6px;
+  margin-top: 24px;
+  font-size: 8.5px;
+  color: #333333;
+}
+
+.doc-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.doc-footer-right {
+  font-weight: bold;
+}
+
+/* Print Rules */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .vevo-official-doc-sheet,
+  .vevo-official-doc-sheet * {
+    visibility: visible;
+  }
+  .vevo-official-doc-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20mm 15mm;
+  }
+}

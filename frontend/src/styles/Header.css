@@ -1,0 +1,194 @@
+/* Exact Header CSS matching screenshot */
+
+.homeaffairs-exact-header {
+  width: 100%;
+  background-color: #001B2E;
+  position: relative;
+  z-index: 100;
+}
+
+.exact-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 64px;
+  background-color: #001726;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Menu Button */
+.exact-menu-btn {
+  background-color: #005F8F;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 28px;
+  height: 100%;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.exact-menu-btn:hover {
+  background-color: #004D74;
+}
+
+.exact-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 14px;
+}
+
+.exact-hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 1px;
+}
+
+.exact-menu-text {
+  letter-spacing: 0.3px;
+}
+
+/* Brand Logo Center */
+.exact-brand-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 20px;
+  text-decoration: none;
+  flex: 1;
+  height: 100%;
+}
+
+.exact-brand-img {
+  max-height: 46px;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.exact-brand-divider {
+  display: inline-block;
+  width: 1px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 16px;
+}
+
+.exact-brand-subsite-text {
+  color: #FFFFFF;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* Search Button Right */
+.exact-search-btn {
+  background-color: #001726;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 100%;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.exact-search-btn:hover {
+  background-color: #002B49;
+}
+
+.exact-search-icon {
+  font-size: 26px;
+  color: #FFFFFF;
+}
+
+/* Toplinks Sub-Row */
+.exact-toplinks-row {
+  background-color: #001726;
+  padding: 6px 24px 8px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.exact-toplinks-inner {
+  display: flex;
+  justify-content: flex-end;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.exact-toplinks-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 12px;
+}
+
+.exact-toplinks-list a, .exact-toplink-btn {
+  color: #93C5FD;
+  font-size: 12px;
+  text-decoration: none;
+  font-family: var(--font-family);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.exact-toplinks-list a:hover, .exact-toplink-btn:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.exact-pipe {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+}
+
+@media (max-width: 992px) {
+  .exact-brand-subsite-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .exact-menu-btn {
+    padding: 0 16px;
+  }
+  .exact-brand-img {
+    max-height: 36px;
+  }
+  .exact-brand-divider {
+    height: 28px;
+    margin: 0 10px;
+  }
+  .exact-brand-subsite-text {
+    font-size: 13px;
+  }
+  .exact-toplinks-row {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .exact-brand-divider,
+  .exact-brand-subsite-text {
+    display: none;
+  }
+}

@@ -1,0 +1,152 @@
+/* Australian Government Department of Home Affairs Design System */
+
+:root {
+  --primary: #002B49;
+  --primary-dark: #001B2E;
+  --primary-light: #0B466F;
+  --primary-hover: #003F6B;
+  
+  --secondary: #007798;
+  --secondary-light: #E0F2FE;
+  --secondary-dark: #005670;
+  
+  --accent-gold: #DAAA00;
+  --accent-gold-light: #FEF3C7;
+  
+  --success: #15803D;
+  --success-bg: #DCFCE7;
+  --success-border: #86EFAC;
+  
+  --warning: #B45309;
+  --warning-bg: #FEF3C7;
+  --warning-border: #FCD34D;
+  
+  --danger: #B91C1C;
+  --danger-bg: #FEE2E2;
+  --danger-border: #FCA5A5;
+  
+  --text-primary: #1E293B;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-light: #F8FAFC;
+  --text-link: #006699;
+  --text-link-hover: #003F6B;
+  
+  --bg-page: #F8FAFC;
+  --bg-white: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F1F5F9;
+  --bg-highlight: #F0FDF4;
+  
+  --border-light: #E2E8F0;
+  --border-medium: #CBD5E1;
+  --border-dark: #94A3B8;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Georgia', serif;
+  
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  --container-max: 1200px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  color: var(--text-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 15px;
+}
+
+/* Base utility classes */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Official Print Styles for VEVO Certificate */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 12pt !important;
+  }
+  
+  .no-print, 
+  header, 
+  footer, 
+  .tabs-nav-wrapper, 
+  .hero-banner, 
+  .content-sidebar,
+  .quick-links-banner,
+  .action-buttons-toolbar {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  .vevo-result-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}

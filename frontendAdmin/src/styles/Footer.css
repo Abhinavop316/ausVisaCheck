@@ -1,0 +1,108 @@
+.aus-admin-footer {
+  width: 100%;
+  background-color: #001B2E;
+  color: #FFFFFF;
+  margin-top: auto;
+}
+
+/* Acknowledgement of Country Banner */
+.aus-ack-banner {
+  background-color: #002B49;
+  border-top: 3px solid #004D79;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 0;
+}
+
+.aus-ack-inner {
+  width: min(1240px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.aus-indigenous-flag {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.aus-indigenous-flag .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-ochre { background-color: #D97706; }
+.dot-black { background-color: #000000; }
+.dot-red { background-color: #DC2626; }
+
+.aus-ack-text {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #E2E8F0;
+  margin: 0;
+}
+
+/* Main Footer */
+.aus-admin-footer__main {
+  padding: 24px 0;
+}
+
+.aus-admin-footer__inner {
+  width: min(1240px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.aus-admin-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.aus-admin-footer__crest {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.aus-admin-footer__caption {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.aus-admin-footer__links-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+}
+
+.aus-admin-footer__links-row a {
+  color: #93C5FD;
+  text-decoration: underline;
+}
+
+.aus-admin-footer__links-row a:hover {
+  color: #FFFFFF;
+}
+
+.aus-admin-footer__links-row .pipe {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .aus-admin-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

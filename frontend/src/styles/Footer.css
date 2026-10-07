@@ -1,0 +1,162 @@
+/* Footer CSS */
+
+.homeaffairs-footer {
+  width: 100%;
+  background-color: #001B2E;
+  color: #FFFFFF;
+  margin-top: 60px;
+}
+
+/* Acknowledgement of Country */
+.acknowledgement-banner {
+  background-color: #001524;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+}
+
+.ack-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.indigenous-art-flag {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-ochre {
+  background-color: #DAAA00;
+}
+
+.dot-black {
+  background-color: #1E293B;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dot-red {
+  background-color: #DC2626;
+}
+
+.ack-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #CBD5E1;
+  font-style: italic;
+}
+
+/* Main Footer */
+.footer-main-section {
+  padding: 48px 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.footer-heading {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  border-bottom: 2px solid #007798;
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links-list a, .footer-link-btn {
+  color: #94A3B8;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s;
+  display: inline-block;
+  text-align: left;
+}
+
+.footer-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.footer-links-list a:hover, .footer-link-btn:hover {
+  color: #38BDF8;
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+/* Legal Bottom Bar */
+.footer-legal-bar {
+  background-color: #00101C;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 0;
+  font-size: 12.5px;
+  color: #64748B;
+}
+
+.footer-legal-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.legal-links-list {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legal-links-list a {
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 12.5px;
+}
+
+.legal-links-list a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ack-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-legal-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

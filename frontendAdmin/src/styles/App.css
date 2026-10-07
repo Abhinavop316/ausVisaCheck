@@ -1,0 +1,334 @@
+/* Home Affairs Admin Portal Core Layout & Utility CSS */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page);
+  color: var(--text-body);
+}
+
+.app-shell__main {
+  flex: 1;
+  width: min(1240px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+/* Section Header */
+.section-heading {
+  border-bottom: 2px solid #002B49;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading__title {
+  margin: 0;
+  color: #002B49;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.section-heading__desc {
+  margin: 6px 0 0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+/* Card Container */
+.admin-card {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-top: 4px solid #004D79;
+  border-radius: var(--radius-sm);
+  padding: 1.75rem 2rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.admin-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #002B49;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+/* Form Styles */
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .form-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #002B49;
+}
+
+.form-group label .req {
+  color: #DC2626;
+  margin-left: 2px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #94A3B8;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: #0F172A;
+  background-color: #FFFFFF;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #004D79;
+  box-shadow: 0 0 0 3px rgba(0, 77, 121, 0.15);
+}
+
+.form-group .field-hint {
+  font-size: 0.78rem;
+  color: #64748B;
+}
+
+/* Buttons */
+.primary-button,
+.secondary-button,
+.danger-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 2.6rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.primary-button {
+  background-color: #002B49;
+  color: #FFFFFF;
+  border-color: #002B49;
+}
+
+.primary-button:hover {
+  background-color: #004D79;
+  border-color: #004D79;
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  background-color: #004D79;
+  color: #FFFFFF;
+  border-color: #004D79;
+}
+
+.secondary-button:hover {
+  background-color: #006699;
+  border-color: #006699;
+}
+
+.danger-button {
+  background-color: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+}
+
+.danger-button:hover {
+  background-color: #B91C1C;
+}
+
+.outline-button {
+  background-color: #FFFFFF;
+  color: #004D79;
+  border: 1px solid #004D79;
+}
+
+.outline-button:hover {
+  background-color: #F0F3F6;
+}
+
+/* Alerts */
+.alert-box {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-box--error {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
+.alert-box--success {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+
+.alert-box--info {
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1E40AF;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.status-badge.issued,
+.status-badge.in-effect {
+  background-color: #D1FAE5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+
+.status-badge.pending {
+  background-color: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+}
+
+.status-badge.refused,
+.status-badge.revoked {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+/* Supporting Document Checkboxes & Badges */
+.doc-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.doc-checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  font-size: 0.9rem;
+  color: #1E293B;
+  font-weight: 500;
+}
+
+.doc-checkbox-item:hover {
+  background-color: #F1F5F9;
+  border-color: #94A3B8;
+}
+
+.doc-checkbox-item.checked {
+  background-color: #E0F2FE;
+  border-color: #0284C7;
+  color: #0369A1;
+  font-weight: 600;
+}
+
+.doc-checkbox-item input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  accent-color: #004D79;
+}
+
+.other-doc-input-wrap {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.other-doc-input-wrap input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #94A3B8;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.doc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background-color: #E0F2FE;
+  border: 1px solid #7DD3FC;
+  color: #0369A1;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.doc-pill-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  background-color: #BAE6FD;
+  color: #0369A1;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.doc-pill-remove:hover {
+  background-color: #EF4444;
+  color: #FFFFFF;
+}

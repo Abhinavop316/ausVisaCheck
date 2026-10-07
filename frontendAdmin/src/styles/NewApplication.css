@@ -1,0 +1,27 @@
+.new-application-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.new-application__quick-links {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.new-application__quick-link-active {
+  font-weight: bold;
+  color: #0535d2;
+}
+
+.new-application__section {
+  margin-bottom: 30px;
+}
+
+.new-application__form .field-row {
+  margin-bottom: 18px;
+}
+
+.required {
+  color: #dd2a2a;
+}

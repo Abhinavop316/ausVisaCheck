@@ -1,0 +1,114 @@
+.aus-admin-header {
+  width: 100%;
+  background-color: #002B49;
+  border-bottom: 3px solid #004D79;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.aus-admin-header__top {
+  padding: 12px 0;
+}
+
+.aus-admin-header__inner {
+  width: min(1240px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.aus-admin-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.aus-admin-crest-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.aus-admin-brand-divider {
+  display: block;
+  width: 1px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.aus-admin-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.aus-admin-brand-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.aus-admin-brand-sub {
+  font-size: 0.75rem;
+  color: #93C5FD;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.aus-admin-header__quicklinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.aus-admin-toplink {
+  color: #E2E8F0;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.aus-admin-toplink:hover,
+.aus-admin-toplink.active {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+}
+
+.aus-admin-header__quicklinks .pipe {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.aus-admin-logout-btn {
+  background: #DC2626;
+  border: 1px solid #B91C1C;
+  color: #FFFFFF;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.aus-admin-logout-btn:hover {
+  background: #B91C1C;
+}
+
+@media (max-width: 768px) {
+  .aus-admin-header__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

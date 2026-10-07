@@ -1,0 +1,331 @@
+/* VEVO Enquiry Form CSS */
+
+.vevo-enquiry-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 4px 16px rgba(0, 43, 73, 0.08);
+  padding: 32px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.vevo-enquiry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #E2E8F0;
+  margin-bottom: 24px;
+  gap: 20px;
+}
+
+.vevo-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.vevo-shield-icon {
+  font-size: 38px;
+  color: var(--secondary);
+  background: var(--secondary-light);
+  padding: 8px;
+  border-radius: var(--radius-md);
+}
+
+.vevo-form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.vevo-form-subtitle {
+  color: var(--text-secondary);
+  font-size: 14.5px;
+  margin-top: 4px;
+}
+
+/* Demo autofill bar */
+.demo-fill-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F1F5F9;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #CBD5E1;
+}
+
+.demo-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.demo-btn {
+  background-color: #FFFFFF;
+  border: 1px solid #94A3B8;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.demo-btn:hover {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+/* Alert */
+.vevo-alert {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+}
+
+.vevo-alert-error {
+  background-color: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  color: #991B1B;
+}
+
+.vevo-alert .alert-icon {
+  font-size: 22px;
+  color: #DC2626;
+}
+
+.alert-content p {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+/* Form inputs */
+.vevo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.vevo-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vevo-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.req-star {
+  color: #DC2626;
+  font-weight: bold;
+}
+
+.vevo-field-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.label-with-help {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.help-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.help-link-btn:hover {
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.help-icon {
+  font-size: 16px;
+}
+
+.vevo-input, .vevo-select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.vevo-input:focus, .vevo-select:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(0, 119, 152, 0.15);
+}
+
+/* DOB Inputs Grid */
+.dob-inputs-grid {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px;
+  gap: 12px;
+}
+
+.dob-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sub-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Terms Checkbox */
+.vevo-terms-box {
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.terms-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.vevo-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.terms-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.terms-link-btn {
+  background: none;
+  border: none;
+  color: var(--secondary);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+.terms-link-btn:hover {
+  color: var(--primary);
+}
+
+/* Action Buttons */
+.vevo-actions-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.vevo-submit-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 10px rgba(0, 43, 73, 0.2);
+  transition: all 0.2s ease;
+}
+
+.vevo-submit-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 43, 73, 0.25);
+}
+
+.vevo-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.vevo-clear-btn {
+  height: 50px;
+  padding: 0 24px;
+  background-color: #F1F5F9;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: var(--radius-md);
+  transition: all 0.15s;
+}
+
+.vevo-clear-btn:hover:not(:disabled) {
+  background-color: #E2E8F0;
+  color: var(--text-primary);
+}
+
+.vevo-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .vevo-enquiry-card {
+    padding: 20px;
+  }
+  .vevo-enquiry-header {
+    flex-direction: column;
+  }
+  .demo-fill-bar {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .dob-inputs-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .vevo-actions-row {
+    flex-direction: column;
+  }
+}

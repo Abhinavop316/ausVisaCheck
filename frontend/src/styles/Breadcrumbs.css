@@ -1,0 +1,50 @@
+.nz-breadcrumbs {
+  width: 100%;
+  background: var(--nz-bg-gray);
+  border-bottom: 1px solid var(--nz-border-color);
+  font-size: 0.8125rem;
+  padding: 0.75rem 0;
+}
+
+.nz-breadcrumbs__inner {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.nz-breadcrumbs__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nz-breadcrumbs__link {
+  color: var(--nz-blue-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nz-breadcrumbs__link:hover {
+  color: var(--nz-blue-hover);
+  text-decoration: underline;
+}
+
+.nz-breadcrumbs__sep {
+  display: flex;
+  align-items: center;
+  color: var(--nz-text-muted);
+}
+
+.nz-breadcrumbs__icon {
+  width: 8px;
+  height: 6px;
+  fill: currentColor;
+}
+
+.nz-breadcrumbs__current {
+  color: var(--nz-text-muted);
+  font-weight: 400;
+}

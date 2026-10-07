@@ -1,0 +1,871 @@
+/* ==========================================================================
+   ImmiAccount - My Applications Summary Result UI (matching official screenshot)
+   ========================================================================== */
+
+.immi-status-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1E293B;
+}
+
+/* 1. ImmiAccount Top Header */
+.immi-account-header {
+  background-color: #002B49;
+  color: #FFFFFF;
+  padding: 12px 24px;
+}
+
+.immi-header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.immi-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.immi-crest-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.immi-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.immi-account-brand-title {
+  font-size: 26px;
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+}
+
+.immi-user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #CBD5E1;
+}
+
+.immi-user-email {
+  color: #E2E8F0;
+}
+
+.immi-divider {
+  color: #64748B;
+}
+
+.immi-logout-btn {
+  background: none;
+  border: none;
+  color: #93C5FD;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.immi-logout-btn:hover {
+  color: #FFFFFF;
+}
+
+/* 2. Top Navigation Tabs Bar */
+.immi-account-nav-tabs {
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #CBD5E1;
+  padding: 0 16px;
+}
+
+.immi-nav-tabs-inner {
+  display: flex;
+}
+
+.immi-tabs-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2px;
+}
+
+.immi-tab-item {
+  margin: 0;
+}
+
+.immi-tab-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.immi-tab-btn:hover {
+  color: #002B49;
+  background-color: #F1F5F9;
+}
+
+.immi-tab-item.active .immi-tab-btn {
+  background-color: #FFFFFF;
+  color: #002B49;
+  font-weight: 700;
+  border-color: #CBD5E1;
+  border-bottom: 2px solid #002B49;
+  margin-bottom: -1px;
+}
+
+.arrow-down {
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+/* 3. Blue Subheader Banner */
+.immi-subhead-banner {
+  background-color: #002B49;
+  color: #FFFFFF;
+  padding: 8px 18px;
+}
+
+.immi-subhead-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.immi-subhead-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.immi-subhead-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #0284C7;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* 4. Immi Content Body */
+.immi-content-body {
+  padding: 16px 20px 24px;
+}
+
+/* Action Toolbar */
+.immi-action-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 0 16px;
+  border-bottom: 1px solid #E2E8F0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.immi-toolbar-left-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.immi-action-link-btn {
+  background: none;
+  border: none;
+  color: #004D79;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.immi-action-link-btn:hover {
+  text-decoration: underline;
+  color: #002B49;
+}
+
+.action-icon {
+  font-size: 17px;
+  color: #004D79;
+}
+
+.immi-toolbar-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.immi-search-input-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #94A3B8;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.immi-search-input-box input {
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  width: 170px;
+}
+
+.immi-search-submit-btn {
+  background: #F1F5F9;
+  border: none;
+  border-left: 1px solid #CBD5E1;
+  padding: 5px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+}
+
+.immi-search-submit-btn:hover {
+  background: #E2E8F0;
+}
+
+.immi-search-submit-btn .material-icons {
+  font-size: 16px;
+}
+
+.immi-advanced-search-link {
+  background: none;
+  border: none;
+  color: #004D79;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* 5. List Header Controls */
+.immi-list-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.immi-list-left-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.immi-list-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #002B49;
+  margin: 0;
+}
+
+.immi-sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.immi-sort-select {
+  border: 1px solid #CBD5E1;
+  padding: 3px 8px;
+  font-size: 12.5px;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  color: #1E293B;
+}
+
+.immi-sort-dir-btn {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.immi-refresh-link-btn {
+  background: none;
+  border: none;
+  color: #004D79;
+  font-size: 12.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.immi-refresh-link-btn:hover {
+  text-decoration: underline;
+}
+
+.refresh-icon {
+  font-size: 15px;
+}
+
+.immi-pagination-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #475569;
+}
+
+.page-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.immi-page-select {
+  border: 1px solid #CBD5E1;
+  padding: 1px 4px;
+  font-size: 12px;
+}
+
+.nav-arrows {
+  color: #94A3B8;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.immi-copy-alert {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+  padding: 8px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+
+/* 6. Application Card */
+.immi-application-card {
+  border: 1px solid #CBD5E1;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  margin-top: 6px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.immi-card-top-stripe {
+  height: 3px;
+  background-color: #D97706; /* Amber top line matching screenshot */
+  width: 100%;
+}
+
+.immi-card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.immi-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.immi-collapse-toggle-btn {
+  background: none;
+  border: 1px solid #CBD5E1;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  color: #334155;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+}
+
+.immi-folder-icon {
+  font-size: 18px;
+  color: #D97706;
+}
+
+.immi-applicant-meta {
+  font-size: 13.5px;
+}
+
+.immi-applicant-name {
+  font-weight: 700;
+  color: #002B49;
+}
+
+.immi-applicant-category {
+  color: #475569;
+  font-weight: 500;
+}
+
+.immi-status-pill {
+  font-size: 13px;
+  font-weight: 700;
+  color: #002B49;
+}
+
+/* 2-Column Data Grid */
+.immi-data-grid-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 14px 18px;
+  gap: 20px;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .immi-data-grid-two-col {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.immi-grid-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  padding: 5px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .immi-grid-row {
+    grid-template-columns: 140px 1fr;
+  }
+}
+
+.immi-label {
+  color: #475569;
+  font-weight: 500;
+}
+
+.immi-value {
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.immi-value.font-mono {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+}
+
+.immi-purple-link {
+  color: #7C3AED;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.immi-purple-link:hover {
+  color: #5B21B6;
+}
+
+.text-muted {
+  color: #94A3B8;
+}
+
+/* Bottom Action Footer */
+.immi-card-actions-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #FAFAFA;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.immi-view-details-btn {
+  background: none;
+  border: none;
+  color: #004D79;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.immi-view-details-btn:hover {
+  text-decoration: underline;
+  color: #002B49;
+}
+
+.immi-view-details-btn .material-icons {
+  font-size: 17px;
+  color: #004D79;
+}
+
+.expand-indicator {
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+.immi-footer-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.immi-card-tool-btn {
+  background: none;
+  border: none;
+  color: #004D79;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.immi-card-tool-btn:hover {
+  text-decoration: underline;
+  color: #002B49;
+}
+
+.immi-card-tool-btn .material-icons {
+  font-size: 15px;
+}
+
+/* Disabled Actions (New application, Submit applications, Update details, Remove) */
+.immi-action-link-btn.disabled-action,
+.immi-card-tool-btn.disabled-action {
+  color: #94A3B8 !important;
+  cursor: not-allowed !important;
+  opacity: 0.65;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+.immi-action-link-btn.disabled-action .action-icon,
+.immi-card-tool-btn.disabled-action .material-icons {
+  color: #94A3B8 !important;
+}
+
+/* 7. Expanded Detailed View */
+.immi-expanded-details-panel {
+  padding: 20px;
+  background-color: #F8FAFC;
+  border-top: 1px solid #CBD5E1;
+}
+
+.immi-expanded-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.immi-expanded-header h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #002B49;
+  margin: 0;
+}
+
+.expanded-header-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-pdf-download,
+.btn-pdf-print,
+.btn-email-share {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #CBD5E1;
+  transition: all 0.15s ease;
+}
+
+.btn-pdf-download {
+  background-color: #004D79;
+  color: #FFFFFF;
+  border-color: #004D79;
+  box-shadow: 0 1px 3px rgba(0, 43, 73, 0.2);
+}
+
+.btn-pdf-download:hover {
+  background-color: #002B49;
+}
+
+.btn-pdf-download:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.btn-pdf-print {
+  background-color: #002B49;
+  color: #FFFFFF;
+  border-color: #002B49;
+}
+
+.btn-pdf-print:hover {
+  background-color: #004D79;
+}
+
+.btn-email-share {
+  background-color: #FFFFFF;
+  color: #004D79;
+}
+
+.btn-email-share:hover {
+  background-color: #F1F5F9;
+}
+
+.btn-pdf-download .material-icons,
+.btn-pdf-print .material-icons,
+.btn-email-share .material-icons {
+  font-size: 15px;
+}
+
+.immi-verification-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #ECFDF5;
+  border: 1px solid #86EFAC;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+}
+
+.check-icon {
+  font-size: 28px;
+  color: #16A34A;
+}
+
+.immi-verification-badge strong {
+  display: block;
+  font-size: 14px;
+  color: #166534;
+}
+
+.immi-verification-badge p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #15803D;
+}
+
+.immi-details-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+  .immi-details-sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.immi-section-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 14px;
+  border-radius: 4px;
+}
+
+.section-box-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #002B49;
+  margin: 0 0 10px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.detail-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  padding: 3px 0;
+  border-bottom: 1px dotted #F1F5F9;
+}
+
+.row-item .lbl {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.row-item .val {
+  color: #0F172A;
+  font-weight: 600;
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Conditions Cards */
+.immi-conditions-container {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 14px;
+  border-radius: 4px;
+}
+
+.conditions-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.condition-card {
+  display: flex;
+  gap: 12px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 10px 12px;
+  border-radius: 4px;
+  align-items: flex-start;
+}
+
+.condition-code-badge {
+  background-color: #002B49;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.condition-desc-wrap strong {
+  display: block;
+  font-size: 12.5px;
+  color: #002B49;
+  margin-bottom: 2px;
+}
+
+.condition-desc-wrap p {
+  margin: 0;
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+/* 8. Bottom List Pagination */
+.immi-list-footer-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px solid #E2E8F0;
+}
+
+/* 9. Subtle Gov Footer */
+.immi-gov-footer {
+  background-color: #F1F5F9;
+  border-top: 1px solid #CBD5E1;
+  padding: 14px 20px;
+  margin-top: 20px;
+}
+
+.immi-footer-legal-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.immi-footer-legal-links a {
+  color: #004D79;
+  text-decoration: underline;
+}
+
+.immi-footer-legal-links a:hover {
+  color: #002B49;
+}
+
+.immi-footer-legal-links .pipe {
+  color: #94A3B8;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .immi-status-container {
+    box-shadow: none;
+    border: none;
+    max-width: 100%;
+  }
+  .immi-expanded-details-panel {
+    display: block !important;
+  }
+}

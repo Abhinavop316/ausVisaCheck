@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" width="100%" height="100%">
+  <!-- Blue Field -->
+  <rect width="60" height="40" fill="#002B7F"/>
+  
+  <!-- Union Jack Canton -->
+  <g id="canton">
+    <rect width="30" height="20" fill="#00247D"/>
+    <!-- St Andrew Saltire White -->
+    <path d="M0,0 L30,20 M30,0 L0,20" stroke="#FFFFFF" stroke-width="4"/>
+    <!-- St Patrick Saltire Red -->
+    <path d="M0,0 L15,10 M30,0 L15,10 M0,20 L15,10 M30,20 L15,10" stroke="#CC0000" stroke-width="1.8"/>
+    <!-- St George Cross White -->
+    <path d="M15,0 L15,20 M0,10 L30,10" stroke="#FFFFFF" stroke-width="6"/>
+    <!-- St George Cross Red -->
+    <path d="M15,0 L15,20 M0,10 L30,10" stroke="#CC0000" stroke-width="3.5"/>
+  </g>
+  
+  <!-- Commonwealth 7-Point Star (under Union Jack) -->
+  <g transform="translate(15, 30) scale(0.6)" fill="#FFFFFF">
+    <polygon points="0,-12 2.6,-4.5 10,-7 5.5,-1 11.5,4 3.5,4.5 5,12 0,6 -5,12 -3.5,4.5 -11.5,4 -5.5,-1 -10,-7 -2.6,-4.5"/>
+  </g>
+
+  <!-- Southern Cross (Right side) -->
+  <!-- Alpha Crucis (Bottom) -->
+  <circle cx="45" cy="32" r="1.6" fill="#FFFFFF"/>
+  <!-- Beta Crucis (Left) -->
+  <circle cx="37" cy="21" r="1.6" fill="#FFFFFF"/>
+  <!-- Gamma Crucis (Top) -->
+  <circle cx="45" cy="9" r="1.6" fill="#FFFFFF"/>
+  <!-- Delta Crucis (Right) -->
+  <circle cx="52" cy="18" r="1.6" fill="#FFFFFF"/>
+  <!-- Epsilon Crucis (Small middle-right) -->
+  <circle cx="48" cy="24" r="1.0" fill="#FFFFFF"/>
+</svg>
