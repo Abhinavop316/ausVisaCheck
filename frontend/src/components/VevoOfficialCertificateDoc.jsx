@@ -39,8 +39,10 @@ const VevoOfficialCertificateDoc = ({ data, id = 'vevo-official-pdf-doc' }) => {
   const passportNum = data.documentNumber || data.passportNumber || 'J5771300';
   const visaClassSubclass = `${data.visaClass || 'FA'} / ${data.visaSubclass || '500'}`;
   const visaApplicant = data.visaApplicant || 'Primary';
-  const grantDate = data.visaGrantDate || '10 February 2026';
-  const expiryDate = data.visaExpiryDate || '10 February 2027';
+  const todayFmt = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+  const nextYearFmt = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+  const grantDate = data.visaGrantDate || todayFmt;
+  const expiryDate = data.visaExpiryDate || nextYearFmt;
   const location = data.locationAtCheck || data.location || 'Offshore';
   const visaStatus = data.visaStatus || (data.status === 'Issued' ? 'Issued (In Effect / Active)' : (data.status || 'Pending (Under Review)'));
   const statusExplanation = data.statusMessage || data.paragraph || 'Currently the status is pending, the application is under review.';

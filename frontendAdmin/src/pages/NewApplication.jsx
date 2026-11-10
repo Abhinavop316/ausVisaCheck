@@ -16,6 +16,7 @@ function NewApplication({ onOpenFaq }) {
     placeOfBirth: "",
     passportNumber: "",
     referenceNumber: "",
+    submissionDate: new Date().toISOString().split("T")[0],
     status: "Pending",
     paragraph: "Currently the status is pending, the application is under review.",
     agreedToTerms: true,
@@ -133,6 +134,7 @@ function NewApplication({ onOpenFaq }) {
       CountryofCitizenship: formData.countryOfCitizenship.trim(),
       PassportNumber: formData.passportNumber.trim(),
       ReferenceNumber: formData.referenceNumber ? formData.referenceNumber.trim().toUpperCase() : undefined,
+      SubmissionDate: formData.submissionDate ? new Date(formData.submissionDate) : new Date(),
       Status: formData.status || "Pending",
       Paragraph: formData.paragraph || "Currently the status is pending, the application is under review.",
       Documents: [...selectedDocs, ...customDocs],
@@ -164,6 +166,7 @@ function NewApplication({ onOpenFaq }) {
       placeOfBirth: "",
       passportNumber: "",
       referenceNumber: "",
+      submissionDate: new Date().toISOString().split("T")[0],
       status: "Pending",
       paragraph: "Currently the status is pending, the application is under review.",
       agreedToTerms: true,
@@ -554,22 +557,34 @@ function NewApplication({ onOpenFaq }) {
         <div className="admin-card">
           <h2 className="admin-card__title">4. Initial Visa Status &amp; Processing Directives</h2>
 
-          <div className="form-group">
-            <label htmlFor="status">
-              Initial Status <span className="req">*</span>
-            </label>
-            <select
-              id="status"
-              value={formData.status}
-              onChange={(e) => handleChange("status", e.target.value)}
-              required
-            >
-              {statuses.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
+          <div className="form-grid-2col">
+            <div className="form-group">
+              <label htmlFor="status">
+                Initial Status <span className="req">*</span>
+              </label>
+              <select
+                id="status"
+                value={formData.status}
+                onChange={(e) => handleChange("status", e.target.value)}
+                required
+              >
+                {statuses.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="submissionDate">Date Submitted / Lodged</label>
+              <input
+                id="submissionDate"
+                type="date"
+                value={formData.submissionDate}
+                onChange={(e) => handleChange("submissionDate", e.target.value)}
+              />
+            </div>
           </div>
 
           <div className="form-group">

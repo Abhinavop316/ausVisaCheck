@@ -75,7 +75,17 @@ const clientSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
-});
+  SubmissionDate: {
+    type: Date,
+    default: Date.now,
+  },
+  VisaGrantDate: {
+    type: Date,
+  },
+  VisaExpiryDate: {
+    type: Date,
+  },
+}, { timestamps: true });
 
 
 const clientModel = mongoose.model('Client', clientSchema);

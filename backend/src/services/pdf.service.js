@@ -144,8 +144,23 @@ function generateVevoPdfBuffer(client) {
       const passportNum = client.PassportNumber || 'J5771300';
       const visaStatus = client.Status === 'Issued' ? 'Issued (In Effect / Active)' : (client.Status || 'Pending (Under Review)');
       const statusExplanation = client.Paragraph || 'Currently the status is pending, the application is under review.';
-      const grantDate = '10 February 2026';
-      const expiryDate = '10 February 2027';
+      
+      // Dynamic Application & Decision Dates
+      const baseSubDate = client.SubmissionDate 
+        ? new Date(client.SubmissionDate) 
+        : (client.createdAt ? new Date(client.createdAt) : (client._id && typeof client._id.getTimestamp === 'function' ? client._id.getTimestamp() : new Date()));
+
+      const baseGrantDate = client.VisaGrantDate 
+        ? new Date(client.VisaGrantDate) 
+        : (client.Status === 'Issued' ? baseSubDate : baseSubDate);
+
+      const baseExpiryDate = client.VisaExpiryDate 
+        ? new Date(client.VisaExpiryDate) 
+        : new Date(new Date(baseGrantDate).setFullYear(baseGrantDate.getFullYear() + 1));
+
+      const dateFmt = { day: 'numeric', month: 'long', year: 'numeric' };
+      const grantDate = baseGrantDate.toLocaleDateString('en-AU', dateFmt);
+      const expiryDate = baseExpiryDate.toLocaleDateString('en-AU', dateFmt);
 
       const submittedDocs = Array.isArray(client.Documents) && client.Documents.length > 0 
         ? client.Documents.join(', ')

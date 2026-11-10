@@ -78,6 +78,15 @@ exports.createClient = async (req, res) => {
             }
         }
 
+        // Compute application dates dynamically
+        const subDate = req.body.SubmissionDate ? new Date(req.body.SubmissionDate) : new Date();
+        const grantDate = req.body.VisaGrantDate 
+            ? new Date(req.body.VisaGrantDate) 
+            : (Status === 'Issued' ? subDate : undefined);
+        const expiryDate = req.body.VisaExpiryDate 
+            ? new Date(req.body.VisaExpiryDate) 
+            : (grantDate ? new Date(new Date(grantDate).setFullYear(grantDate.getFullYear() + 1)) : undefined);
+
         const newClient = new clientModel({
             Category,
             FullName: resolvedFullName,
@@ -95,7 +104,10 @@ exports.createClient = async (req, res) => {
             ReferenceNumber: uniqueRef,
             Status: Status || "Pending",
             Paragraph: Paragraph || "Currently the status is pending, the application is under review.",
-            Documents: Array.isArray(Documents) ? Documents : []
+            Documents: Array.isArray(Documents) ? Documents : [],
+            SubmissionDate: subDate,
+            VisaGrantDate: grantDate,
+            VisaExpiryDate: expiryDate,
         });
         await newClient.save();
 
@@ -201,6 +213,20 @@ exports.editClient = async (req, res) => {
 
         const updateData = { ...req.body };
         delete updateData.ReferenceNumber; // Handled explicitly above
+
+        // Auto-assign grant and expiry dates when status is Issued if not explicitly provided
+        const targetStatus = req.body.Status || client.Status;
+        if (targetStatus === 'Issued') {
+            if (!req.body.VisaGrantDate && !client.VisaGrantDate) {
+                updateData.VisaGrantDate = new Date();
+            }
+            if (!req.body.VisaExpiryDate && !client.VisaExpiryDate) {
+                const baseDate = updateData.VisaGrantDate || client.VisaGrantDate || new Date();
+                const exp = new Date(baseDate);
+                exp.setFullYear(exp.getFullYear() + 1);
+                updateData.VisaExpiryDate = exp;
+            }
+        }
 
         Object.assign(client, updateData);
         await client.save();

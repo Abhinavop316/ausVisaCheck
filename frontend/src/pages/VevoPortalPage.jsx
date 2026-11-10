@@ -171,11 +171,23 @@ const VevoPortalPage = () => {
           visaSubclass: isStudent ? '600' : isWork ? '482' : '500',
           visaStream: isStudent ? 'Higher Education Sector' : isWork ? 'Medium-term Stream' : 'Tourist',
           visaApplicant: 'Primary',
-          visaGrantDate: '14 January 2026',
-          visaExpiryDate: '14 January 2027',
+          submissionDate: clientRecord.SubmissionDate 
+            ? new Date(clientRecord.SubmissionDate) 
+            : (clientRecord.createdAt ? new Date(clientRecord.createdAt) : new Date()),
+          lastUpdated: clientRecord.updatedAt 
+            ? new Date(clientRecord.updatedAt) 
+            : (clientRecord.VisaGrantDate ? new Date(clientRecord.VisaGrantDate) : new Date()),
+          visaGrantDate: clientRecord.VisaGrantDate 
+            ? new Date(clientRecord.VisaGrantDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) 
+            : new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }),
+          visaExpiryDate: clientRecord.VisaExpiryDate 
+            ? new Date(clientRecord.VisaExpiryDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) 
+            : new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }),
           entriesAllowed: 'Multiple entries to and from Australia during the validity of your visa',
           periodOfStay: isStudent ? 'Course duration' : isWork ? '2 Year(s) from arrival' : '3 Month(s) from each arrival',
-          mustNotArriveAfter: '14 January 2027',
+          mustNotArriveAfter: clientRecord.VisaExpiryDate 
+            ? new Date(clientRecord.VisaExpiryDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) 
+            : new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }),
           locationAtCheck: 'Offshore',
           status: clientRecord.Status || 'In effect',
           visaStatus: clientRecord.Status === 'Issued' ? 'Issued (In Effect / Active)' : (clientRecord.Status || 'Pending (Under Review)'),
@@ -212,6 +224,8 @@ const VevoPortalPage = () => {
           visaSubclass: isStudentRef ? '600' : '500',
           visaStream: isStudentRef ? 'Higher Education' : 'Tourist',
           visaApplicant: 'Primary',
+          submissionDate: new Date(),
+          lastUpdated: new Date(),
           visaGrantDate: '10 February 2026',
           visaExpiryDate: '10 February 2027',
           entriesAllowed: 'Multiple entries',

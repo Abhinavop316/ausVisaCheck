@@ -151,6 +151,27 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
           }
         }
 
+        // Compute dates dynamically from client record
+        const dateFmt = { day: 'numeric', month: 'long', year: 'numeric' };
+        const subDateObj = clientRecord.SubmissionDate 
+          ? new Date(clientRecord.SubmissionDate) 
+          : (clientRecord.createdAt ? new Date(clientRecord.createdAt) : new Date());
+
+        const grantDateObj = clientRecord.VisaGrantDate 
+          ? new Date(clientRecord.VisaGrantDate) 
+          : (clientRecord.Status === 'Issued' ? subDateObj : subDateObj);
+
+        const expiryDateObj = clientRecord.VisaExpiryDate 
+          ? new Date(clientRecord.VisaExpiryDate) 
+          : new Date(new Date(grantDateObj).setFullYear(grantDateObj.getFullYear() + 1));
+
+        const updatedDateObj = clientRecord.updatedAt 
+          ? new Date(clientRecord.updatedAt) 
+          : (clientRecord.Status === 'Issued' ? grantDateObj : subDateObj);
+
+        const grantDateStr = grantDateObj.toLocaleDateString('en-AU', dateFmt);
+        const expiryDateStr = expiryDateObj.toLocaleDateString('en-AU', dateFmt);
+
         visaResult = {
           fullName: clientRecord.FullName,
           familyName: familyName,
@@ -168,11 +189,13 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
           visaSubclass: isStudent ? '600' : isWork ? '482' : '500',
           visaStream: isStudent ? 'Higher Education Sector' : isWork ? 'Medium-term Stream' : 'Tourist',
           visaApplicant: 'Primary',
-          visaGrantDate: '14 January 2026',
-          visaExpiryDate: '14 January 2027',
+          submissionDate: subDateObj,
+          lastUpdated: updatedDateObj,
+          visaGrantDate: grantDateStr,
+          visaExpiryDate: expiryDateStr,
           entriesAllowed: 'Multiple entries',
           periodOfStay: isStudent ? 'Course duration' : isWork ? '2 Year(s) from date of arrival' : '3 Month(s) from each arrival',
-          mustNotArriveAfter: '14 January 2027',
+          mustNotArriveAfter: expiryDateStr,
           locationAtCheck: 'Offshore',
           visaStatus: clientRecord.Status === 'Issued' ? 'In effect' : (clientRecord.Status || 'In effect'),
           statusMessage: clientRecord.Paragraph || 'Your visa is currently In Effect and valid for travel to and stay in Australia.',
@@ -210,6 +233,8 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
           visaSubclass: isStudentRef ? '600' : '500',
           visaStream: isStudentRef ? 'Higher Education' : 'Tourist',
           visaApplicant: 'Primary',
+          submissionDate: new Date(),
+          lastUpdated: new Date(),
           visaGrantDate: '10 February 2026',
           visaExpiryDate: '10 February 2027',
           entriesAllowed: 'Multiple entries',

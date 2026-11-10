@@ -38,7 +38,9 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
 
   // Format dates matching screenshot format: '11 Jun 2024'
   const formatDateForImmi = (dateStr) => {
-    if (!dateStr) return '11 Jun 2024';
+    if (!dateStr) {
+      return new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
     try {
       const d = new Date(dateStr);
       if (!isNaN(d.getTime())) {
@@ -72,8 +74,8 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
   const visaCategoryShort = data.visaStream || data.visaClass || 'Visitor';
   const statusDisplay = data.visaStatus || 'In effect';
   const refNumber = data.referenceNumber || data.ReferenceNumber || data.transactionReferenceNumber || 'EGOR949448';
-  const lastUpdatedFormatted = formatDateForImmi(data.visaGrantDate || new Date());
-  const dateSubmittedFormatted = formatDateForImmi(data.submissionDate || '09 Jun 2024');
+  const lastUpdatedFormatted = formatDateForImmi(data.lastUpdated || data.visaGrantDate || new Date());
+  const dateSubmittedFormatted = formatDateForImmi(data.submissionDate || data.createdAt || data.visaGrantDate || new Date());
 
   return (
     <div className="immi-status-container">

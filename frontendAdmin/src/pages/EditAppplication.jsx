@@ -25,6 +25,9 @@ function EditAppplication({ onOpenFaq }) {
     ReferenceNumber: "",
     Status: "Pending",
     Paragraph: "",
+    SubmissionDate: "",
+    VisaGrantDate: "",
+    VisaExpiryDate: "",
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -116,6 +119,11 @@ function EditAppplication({ onOpenFaq }) {
         ReferenceNumber: client.ReferenceNumber || "",
         Status: client.Status || "Pending",
         Paragraph: client.Paragraph || "",
+        SubmissionDate: client.SubmissionDate 
+          ? client.SubmissionDate.split("T")[0] 
+          : (client.createdAt ? client.createdAt.split("T")[0] : new Date().toISOString().split("T")[0]),
+        VisaGrantDate: client.VisaGrantDate ? client.VisaGrantDate.split("T")[0] : "",
+        VisaExpiryDate: client.VisaExpiryDate ? client.VisaExpiryDate.split("T")[0] : "",
       });
 
       const clientDocs = client.Documents || [];
@@ -316,6 +324,46 @@ function EditAppplication({ onOpenFaq }) {
                 value={formData.Paragraph}
                 onChange={(e) => handleChange("Paragraph", e.target.value)}
                 placeholder="This message will be rendered to applicant on VEVO status checks..."
+              />
+            </div>
+
+            <div className="form-grid-2col" style={{ marginTop: "14px" }}>
+              <div className="form-group">
+                <label htmlFor="editSubmissionDate">Date Submitted / Lodged</label>
+                <input
+                  id="editSubmissionDate"
+                  type="date"
+                  value={formData.SubmissionDate}
+                  onChange={(e) => handleChange("SubmissionDate", e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="editGrantDate">Visa Grant Date</label>
+                <input
+                  id="editGrantDate"
+                  type="date"
+                  value={formData.VisaGrantDate}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    handleChange("VisaGrantDate", val);
+                    if (val && !formData.VisaExpiryDate) {
+                      const exp = new Date(val);
+                      exp.setFullYear(exp.getFullYear() + 1);
+                      handleChange("VisaExpiryDate", exp.toISOString().split("T")[0]);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="editExpiryDate">Visa Expiry Date</label>
+              <input
+                id="editExpiryDate"
+                type="date"
+                value={formData.VisaExpiryDate}
+                onChange={(e) => handleChange("VisaExpiryDate", e.target.value)}
               />
             </div>
           </div>
