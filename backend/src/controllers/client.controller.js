@@ -116,18 +116,19 @@ exports.createClient = async (req, res) => {
 
 exports.getAClients = async (req, res) => {
     const { Email, Password, PassportNumber, identNum, ReferenceNumber, referenceNumber } = req.body;
-    const passportToSearch = PassportNumber || identNum;
-    const refToSearch = ReferenceNumber || referenceNumber;
+    const pSearch = (PassportNumber || identNum || "").trim();
+    const rSearch = (ReferenceNumber || referenceNumber || "").trim();
+    const eSearch = (Email || "").trim();
 
     try {
         // If Password is sent, treat as User Login authentication
         if (Password !== undefined) {
-            if (!Email || !Email.trim() || !Password || !Password.trim()) {
+            if (!eSearch || !Password || !Password.trim()) {
                 return res.status(400).json({ message: "Email ID and Password are required." });
             }
 
             const client = await clientModel.findOne({
-                Email: { $regex: new RegExp(`^${Email.trim()}$`, "i") }
+                Email: { $regex: new RegExp(`^${eSearch}$`, "i") }
             });
 
             if (!client || client.Password !== Password.trim()) {
@@ -137,26 +138,28 @@ exports.getAClients = async (req, res) => {
             return res.status(200).json(client);
         }
 
-        // Admin lookup by Email, ReferenceNumber, or PassportNumber
-        const query = {};
-        if (Email && Email.trim()) {
-            query.Email = { $regex: new RegExp(`^${Email.trim()}$`, "i") };
+        // Build flexible conditions matching PassportNumber, ReferenceNumber, or Email
+        const orConditions = [];
+
+        if (pSearch) {
+            orConditions.push({ PassportNumber: { $regex: new RegExp(`^${pSearch}$`, "i") } });
+            orConditions.push({ ReferenceNumber: { $regex: new RegExp(`^${pSearch}$`, "i") } });
         }
 
-        if (refToSearch && refToSearch.trim()) {
-            query.ReferenceNumber = { $regex: new RegExp(`^${refToSearch.trim()}$`, "i") };
-        } else if (passportToSearch && passportToSearch.trim()) {
-            query.$or = [
-                { PassportNumber: { $regex: new RegExp(`^${passportToSearch.trim()}$`, "i") } },
-                { ReferenceNumber: { $regex: new RegExp(`^${passportToSearch.trim()}$`, "i") } }
-            ];
+        if (rSearch && rSearch.toLowerCase() !== pSearch.toLowerCase()) {
+            orConditions.push({ ReferenceNumber: { $regex: new RegExp(`^${rSearch}$`, "i") } });
+            orConditions.push({ PassportNumber: { $regex: new RegExp(`^${rSearch}$`, "i") } });
         }
 
-        if (!query.Email && !query.ReferenceNumber && !query.$or) {
+        if (eSearch) {
+            orConditions.push({ Email: { $regex: new RegExp(`^${eSearch}$`, "i") } });
+        }
+
+        if (orConditions.length === 0) {
             return res.status(400).json({ message: "Please provide an Email, Reference Number, or Passport / Identification Number to search." });
         }
 
-        const client = await clientModel.findOne(query);
+        const client = await clientModel.findOne({ $or: orConditions });
         if (!client) {
             return res.status(404).json({ message: "No client application found matching your details." });
         }

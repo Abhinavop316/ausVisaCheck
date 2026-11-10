@@ -102,13 +102,16 @@ const VevoPortalPage = () => {
     try {
       let clientRecord = null;
       try {
-        clientRecord = await getAClients({
+        const queryPayload = {
           PassportNumber: searchPassport,
           identNum: searchPassport,
-          ReferenceNumber: referenceNumber.trim() || searchPassport,
-        });
+        };
+        if (referenceNumber && referenceNumber.trim()) {
+          queryPayload.ReferenceNumber = referenceNumber.trim();
+        }
+        clientRecord = await getAClients(queryPayload);
       } catch (err) {
-        console.log('Backend lookup fallback:', err.message);
+        console.warn('Backend lookup notice:', err.message);
       }
 
       const now = new Date();

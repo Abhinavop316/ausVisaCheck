@@ -70,7 +70,7 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
 
   const visaTypeName = data.visaDescription || 'Visitor Visa (600)';
   const visaCategoryShort = data.visaStream || data.visaClass || 'Visitor';
-  const statusDisplay = data.visaStatus === 'In effect' ? 'Initial assessment' : (data.visaStatus || 'Initial assessment');
+  const statusDisplay = data.visaStatus || 'In effect';
   const refNumber = data.referenceNumber || data.ReferenceNumber || data.transactionReferenceNumber || 'EGOR949448';
   const lastUpdatedFormatted = formatDateForImmi(data.visaGrantDate || new Date());
   const dateSubmittedFormatted = formatDateForImmi(data.submissionDate || '09 Jun 2024');

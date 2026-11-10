@@ -96,14 +96,17 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
       // 1. Try querying backend client records by Passport or Reference Number
       let clientRecord = null;
       try {
-        clientRecord = await getAClients({
+        const queryPayload = {
           PassportNumber: searchPassport,
           identNum: searchPassport,
-          ReferenceNumber: referenceNumber.trim() || searchPassport,
-        });
+        };
+        if (referenceNumber && referenceNumber.trim()) {
+          queryPayload.ReferenceNumber = referenceNumber.trim();
+        }
+        clientRecord = await getAClients(queryPayload);
       } catch (backendErr) {
         // Backend didn't find match or error, proceed to authentic realistic fallback response
-        console.log("Backend query response:", backendErr.message);
+        console.warn("Backend query notice:", backendErr.message);
       }
 
       // Format authentic official VEVO Verification Statement Data
