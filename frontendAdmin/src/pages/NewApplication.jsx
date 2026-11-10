@@ -187,15 +187,21 @@ function NewApplication({ onOpenFaq }) {
           <div className="alert-box alert-box--success">
             <div>
               <strong style={{ fontSize: "1.05rem", display: "block" }}>
-                ✓ Record Registered with Reference: {submittedClient.PassportNumber || submittedClient._id}
+                ✓ Record Registered with Automated Reference: {submittedClient.ReferenceNumber || submittedClient.PassportNumber || submittedClient._id}
               </strong>
               <p style={{ margin: "4px 0 0", fontSize: "0.88rem" }}>
-                The applicant record is active and will now return accurate results on VEVO and ImmiAccount checks.
+                The applicant record is active. The official VEVO Entitlement Check PDF with reference <strong>{submittedClient.ReferenceNumber}</strong> has been generated and dispatched to <strong>{submittedClient.Email}</strong>.
               </p>
             </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", margin: "20px 0", background: "#F8FAFC", padding: "16px", borderRadius: "6px", border: "1px solid #E2E8F0" }}>
+            <div>
+              <span style={{ fontSize: "0.8rem", color: "#64748B", display: "block" }}>Automated Reference (TRN):</span>
+              <strong style={{ fontFamily: "monospace", color: "#002B49", fontSize: "1.1rem", letterSpacing: "0.5px" }}>
+                {submittedClient.ReferenceNumber || "N/A"}
+              </strong>
+            </div>
             <div>
               <span style={{ fontSize: "0.8rem", color: "#64748B", display: "block" }}>Visa Category:</span>
               <strong style={{ color: "#002B49" }}>{submittedClient.Category}</strong>
@@ -209,8 +215,8 @@ function NewApplication({ onOpenFaq }) {
               <strong style={{ fontFamily: "monospace", color: "#004D79" }}>{submittedClient.PassportNumber}</strong>
             </div>
             <div>
-              <span style={{ fontSize: "0.8rem", color: "#64748B", display: "block" }}>Email Address:</span>
-              <span>{submittedClient.Email}</span>
+              <span style={{ fontSize: "0.8rem", color: "#64748B", display: "block" }}>Given Email (Dispatched PDF):</span>
+              <strong style={{ color: "#166534" }}>{submittedClient.Email}</strong>
             </div>
             <div>
               <span style={{ fontSize: "0.8rem", color: "#64748B", display: "block" }}>Initial Visa Status:</span>

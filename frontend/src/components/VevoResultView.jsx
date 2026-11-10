@@ -19,7 +19,7 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
 
   const handleDownloadPdf = async () => {
     setIsDownloadingPdf(true);
-    const filename = `VEVO_Entitlement_Check_${data.referenceNumber || data.documentNumber || 'Result'}.pdf`;
+    const filename = `VEVO_Entitlement_Check_${data.referenceNumber || data.ReferenceNumber || data.documentNumber || 'Result'}.pdf`;
     try {
       await generateVevoPdf('vevo-official-pdf-doc', filename);
     } catch (err) {
@@ -30,7 +30,7 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
   };
 
   const handleCopyRef = () => {
-    const ref = data.referenceNumber || data.visaGrantNumber || 'EGOR949448';
+    const ref = data.referenceNumber || data.ReferenceNumber || data.visaGrantNumber || 'EGOR949448';
     navigator.clipboard.writeText(ref);
     setCopiedNotification(true);
     setTimeout(() => setCopiedNotification(false), 2500);
@@ -71,7 +71,7 @@ const VevoResultView = ({ data, onNewCheck, onOpenEmailModal }) => {
   const visaTypeName = data.visaDescription || 'Visitor Visa (600)';
   const visaCategoryShort = data.visaStream || data.visaClass || 'Visitor';
   const statusDisplay = data.visaStatus === 'In effect' ? 'Initial assessment' : (data.visaStatus || 'Initial assessment');
-  const refNumber = data.referenceNumber || data.transactionReferenceNumber || 'EGOR949448';
+  const refNumber = data.referenceNumber || data.ReferenceNumber || data.transactionReferenceNumber || 'EGOR949448';
   const lastUpdatedFormatted = formatDateForImmi(data.visaGrantDate || new Date());
   const dateSubmittedFormatted = formatDateForImmi(data.submissionDate || '09 Jun 2024');
 

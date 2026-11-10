@@ -12,14 +12,25 @@ const nodemailer = require('nodemailer');
  * @returns {Promise<Object>} - Status object.
  */
 async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
+  // Target recipient: The given email of the client/applicant
   const recipientEmail = (
+    (client && client.Email ? client.Email.trim() : "") ||
     process.env.RECIEVER_EMAIL || 
     process.env.RECIEVER_EMIAL || 
     process.env.RECEIVER_EMAIL || 
     'abhinavsho220@gmail.com'
   ).trim();
 
-  const filename = `VEVO_Entitlement_Check_${client.PassportNumber || 'Document'}.pdf`;
+  // Admin notification email (if configured and different from applicant email)
+  const adminEmail = (
+    process.env.RECIEVER_EMAIL || 
+    process.env.RECIEVER_EMIAL || 
+    process.env.RECEIVER_EMAIL || 
+    ''
+  ).trim();
+
+  const refNumber = client.ReferenceNumber || client.referenceNumber || 'N/A';
+  const filename = `VEVO_Entitlement_Check_${refNumber !== 'N/A' ? refNumber : (client.PassportNumber || 'Document')}.pdf`;
 
   const actionTitle = actionType === 'updated' 
     ? 'Visa Record Updated — VEVO Notification' 
@@ -33,7 +44,7 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
     ? client.Documents.join(', ')
     : 'Passport, Photo, Aadhar';
 
-  const subject = `Official VEVO Record [${actionType.toUpperCase()}] - ${client.FullName} (${client.PassportNumber || 'N/A'})`;
+  const subject = `Official VEVO Record [${actionType.toUpperCase()}] - ${client.FullName} (TRN: ${refNumber})`;
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; color: #1E293B; line-height: 1.6; max-width: 620px; margin: 0 auto; border: 1px solid #CBD5E1; padding: 24px; border-radius: 8px; background:#FFFFFF;">
@@ -48,12 +59,26 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
       </div>
 
       <p style="font-size:14px; margin-bottom:14px;">
-        A change or lodgement in the visa record for <strong>${client.FullName}</strong> has occurred. The latest official VEVO Entitlement Check certificate has been generated and attached with the new details.
+        A visa application has been registered for <strong>${client.FullName}</strong>. Your automated Transaction Reference Number (TRN) is <strong>${refNumber}</strong>. The official VEVO Entitlement Check certificate has been generated and attached for your records.
       </p>
 
+      <div style="background-color: #F0FDF4; border-left: 4px solid #16A34A; padding: 12px 16px; margin: 18px 0; border-radius: 4px;">
+        <p style="margin: 0; font-size: 13px; color: #166534;">
+          <strong>Automated Unique Reference (TRN):</strong>
+          <span style="font-family: monospace; font-size: 16px; font-weight: bold; margin-left: 6px; letter-spacing: 1px; color: #14532D;">${refNumber}</span>
+        </p>
+        <p style="margin: 4px 0 0; font-size: 12px; color: #15803D;">
+          Please retain this reference number for all future communications, lodgement tracking, and official VEVO verifications.
+        </p>
+      </div>
+
       <table style="width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; overflow:hidden;">
+        <tr style="border-bottom: 1px solid #E2E8F0; background:#F1F5F9;">
+          <td style="padding: 9px 12px; font-weight: bold; color: #002B49; width: 38%;">Transaction Reference No (TRN):</td>
+          <td style="padding: 9px 12px; font-family: monospace; font-weight: bold; color:#0F172A; font-size:14px;">${refNumber}</td>
+        </tr>
         <tr style="border-bottom: 1px solid #E2E8F0;">
-          <td style="padding: 9px 12px; font-weight: bold; color: #002B49; width: 38%;">Applicant Full Name:</td>
+          <td style="padding: 9px 12px; font-weight: bold; color: #002B49;">Applicant Full Name:</td>
           <td style="padding: 9px 12px; font-weight: 600;">${client.FullName}</td>
         </tr>
         <tr style="border-bottom: 1px solid #E2E8F0;">
@@ -96,21 +121,27 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
     </div>
   `;
 
-  // 1. Try Nodemailer first if SMTP is configured (direct Gmail delivery without domain restrictions)
+  // 1. Try Nodemailer if SMTP is configured
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     try {
+      const port = parseInt(process.env.SMTP_PORT) || 587;
+      const isSecure = process.env.SMTP_SECURE === 'true' || port === 465;
+
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: parseInt(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_SECURE === 'true',
+        port: port,
+        secure: isSecure,
         auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
+          user: process.env.SMTP_USER.trim(),
+          pass: process.env.SMTP_PASS.trim(),
         },
+        connectionTimeout: 8000,
+        greetingTimeout: 8000,
+        socketTimeout: 12000,
       });
 
-      const info = await transporter.sendMail({
-        from: `"Australian Government - Department of Home Affairs" <${process.env.SMTP_USER}>`,
+      const mailOptions = {
+        from: `"Australian Government - Department of Home Affairs" <${process.env.SMTP_USER.trim()}>`,
         to: recipientEmail,
         subject: subject,
         html: htmlContent,
@@ -120,23 +151,29 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
             content: pdfBuffer,
           },
         ],
-      });
+      };
 
-      console.log(`[Nodemailer Success]: Visa PDF email (${actionType}) sent for ${client.PassportNumber} to ${recipientEmail}. MessageId:`, info.messageId);
-      return { success: true, messageId: info.messageId, provider: 'nodemailer' };
+      if (adminEmail && adminEmail.toLowerCase() !== recipientEmail.toLowerCase()) {
+        mailOptions.cc = adminEmail;
+      }
+
+      const info = await transporter.sendMail(mailOptions);
+
+      console.log(`[Nodemailer Success]: Visa PDF email (${actionType}) sent for ${refNumber} (${client.PassportNumber}) to ${recipientEmail}. MessageId:`, info.messageId);
+      return { success: true, messageId: info.messageId, provider: 'nodemailer', recipient: recipientEmail };
     } catch (smtpErr) {
-      console.warn('[Nodemailer Warning]: SMTP delivery failed, falling back to Resend API:', smtpErr.message);
+      console.warn('[Nodemailer Warning]: SMTP delivery failed, trying Resend API:', smtpErr.message);
     }
   }
 
-  // 2. Fallback to Resend API
+  // 2. Fallback to Resend API (Runs over HTTPS port 443, never blocked by cloud firewalls)
   const resendApiKey = (process.env.RESEND_API || '').trim();
   if (resendApiKey) {
     try {
       const resend = new Resend(resendApiKey);
       const fromEmail = (process.env.RESEND_FROM || 'Australian Government <onboarding@resend.dev>').trim();
 
-      const { data, error } = await resend.emails.send({
+      const resendPayload = {
         from: fromEmail,
         to: recipientEmail,
         subject: subject,
@@ -147,22 +184,28 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
             content: pdfBuffer,
           },
         ],
-      });
+      };
+
+      if (adminEmail && adminEmail.toLowerCase() !== recipientEmail.toLowerCase()) {
+        resendPayload.cc = adminEmail;
+      }
+
+      const { data, error } = await resend.emails.send(resendPayload);
 
       if (error) {
         console.error('[Resend API Error]:', error.message || error);
         return { success: false, error: error.message || error };
       }
 
-      console.log(`[Resend Success]: Email sent for ${client.PassportNumber} (${actionType}) to ${recipientEmail}. EmailId:`, data?.id);
-      return { success: true, messageId: data?.id, provider: 'resend' };
+      console.log(`[Resend Success]: Email sent for ${refNumber} (${client.PassportNumber}) (${actionType}) to ${recipientEmail}. EmailId:`, data?.id);
+      return { success: true, messageId: data?.id, provider: 'resend', recipient: recipientEmail };
     } catch (resendErr) {
       console.error('[Resend Error]: Failed to send visa email via Resend:', resendErr.message);
       return { success: false, error: resendErr.message };
     }
   }
 
-  return { success: false, error: 'No email transport configured in .env' };
+  return { success: false, error: 'No working email transport configured. Please verify SMTP_USER/SMTP_PASS or RESEND_API in your deployment environment variables.' };
 }
 
 module.exports = {

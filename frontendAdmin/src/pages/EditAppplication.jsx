@@ -22,6 +22,7 @@ function EditAppplication({ onOpenFaq }) {
     POB: "",
     CountryofCitizenship: "",
     PassportNumber: "",
+    ReferenceNumber: "",
     Status: "Pending",
     Paragraph: "",
   });
@@ -75,7 +76,7 @@ function EditAppplication({ onOpenFaq }) {
     try {
       const payload = searchQuery.includes("@")
         ? { Email: searchQuery.trim() }
-        : { PassportNumber: searchQuery.trim(), identNum: searchQuery.trim() };
+        : { PassportNumber: searchQuery.trim(), identNum: searchQuery.trim(), ReferenceNumber: searchQuery.trim() };
 
       const client = await getAClients(payload);
       setSelectedClient(client);
@@ -112,6 +113,7 @@ function EditAppplication({ onOpenFaq }) {
         POB: client.POB || "",
         CountryofCitizenship: client.CountryofCitizenship || "",
         PassportNumber: client.PassportNumber || "",
+        ReferenceNumber: client.ReferenceNumber || "",
         Status: client.Status || "Pending",
         Paragraph: client.Paragraph || "",
       });
@@ -191,12 +193,14 @@ function EditAppplication({ onOpenFaq }) {
         FullName: fullName,
         FamilyName: surname,
         GivenNames: given,
+        ReferenceNumber: (formData.ReferenceNumber || selectedClient.ReferenceNumber || "").trim().toUpperCase(),
         Documents: [...selectedDocs, ...customDocs],
       };
       const updated = await updateClient(selectedClient._id, payload);
       setSelectedClient(updated);
       setIsSubmitting(false);
-      setSuccessMsg(`Visa record for ${updated.FullName} (${updated.PassportNumber}) has been updated successfully!`);
+      const displayRef = updated.ReferenceNumber ? `TRN: ${updated.ReferenceNumber}` : updated.PassportNumber;
+      setSuccessMsg(`Visa record for ${updated.FullName} (${displayRef}) has been updated successfully!`);
       window.scrollTo({ top: 150, behavior: "smooth" });
     } catch (err) {
       setIsSubmitting(false);
@@ -360,6 +364,20 @@ function EditAppplication({ onOpenFaq }) {
 
             <div className="form-grid-2col">
               <div className="form-group">
+                <label htmlFor="editReference">
+                  Transaction Reference Number (TRN) <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: "normal" }}>(Unique Reference)</span>
+                </label>
+                <input
+                  id="editReference"
+                  type="text"
+                  value={formData.ReferenceNumber || selectedClient.ReferenceNumber || ""}
+                  onChange={(e) => handleChange("ReferenceNumber", e.target.value.toUpperCase())}
+                  placeholder="Automated Reference (e.g. EGOR949448)"
+                  style={{ fontFamily: "monospace", textTransform: "uppercase", fontWeight: "bold", color: "#002B49" }}
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="editPassport">
                   Passport Number <span className="req">*</span>
                 </label>
@@ -372,19 +390,19 @@ function EditAppplication({ onOpenFaq }) {
                   style={{ fontFamily: "monospace", textTransform: "uppercase" }}
                 />
               </div>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="editEmail">
-                  Email Address <span className="req">*</span>
-                </label>
-                <input
-                  id="editEmail"
-                  type="email"
-                  value={formData.Email}
-                  onChange={(e) => handleChange("Email", e.target.value)}
-                  required
-                />
-              </div>
+            <div className="form-group">
+              <label htmlFor="editEmail">
+                Email Address (Dispatches Notification PDF) <span className="req">*</span>
+              </label>
+              <input
+                id="editEmail"
+                type="email"
+                value={formData.Email}
+                onChange={(e) => handleChange("Email", e.target.value)}
+                required
+              />
             </div>
 
             <div className="form-grid-2col">

@@ -34,6 +34,7 @@ const VevoOfficialCertificateDoc = ({ data, id = 'vevo-official-pdf-doc' }) => {
   }) + ' ' + now.toLocaleTimeString('en-US', { hour12: false }) + ' (AEST) Canberra, Australia';
 
   const validAsAt = data.checkTimestamp || defaultTimestamp;
+  const refNumber = data.referenceNumber || data.ReferenceNumber || data.transactionReferenceNumber || 'N/A';
   const visaDesc = data.visaDescription ? data.visaDescription.toUpperCase() : 'VISITOR (SUBCLASS 500) TOURIST STREAM';
   const passportNum = data.documentNumber || data.passportNumber || 'J5771300';
   const visaClassSubclass = `${data.visaClass || 'FA'} / ${data.visaSubclass || '500'}`;
@@ -130,6 +131,10 @@ const VevoOfficialCertificateDoc = ({ data, id = 'vevo-official-pdf-doc' }) => {
               <td className="doc-cell-value">{visaDesc}</td>
             </tr>
             <tr>
+              <td className="doc-cell-label font-bold">Transaction Reference Number (TRN)</td>
+              <td className="doc-cell-value font-mono" style={{ fontWeight: 600 }}>{refNumber}</td>
+            </tr>
+            <tr>
               <td className="doc-cell-label font-bold">Passport / Travel document number</td>
               <td className="doc-cell-value">{passportNum}</td>
             </tr>
@@ -216,7 +221,7 @@ const VevoOfficialCertificateDoc = ({ data, id = 'vevo-official-pdf-doc' }) => {
       <div className="doc-footer-meta">
         <div className="doc-footer-left">
           <span>Official Electronic Record — Department of Home Affairs, Commonwealth of Australia</span>
-          <span>Valid as at: {validAsAt}</span>
+          <span>Reference: {refNumber} | Valid as at: {validAsAt}</span>
         </div>
         <div className="doc-footer-right">
           <span>Page 1 of 1</span>

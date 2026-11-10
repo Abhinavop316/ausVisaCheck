@@ -10,13 +10,15 @@ const fs = require('fs');
 function generateVevoPdfBuffer(client) {
   return new Promise((resolve, reject) => {
     try {
+      const refNumber = client.ReferenceNumber || client.referenceNumber || 'N/A';
+
       const doc = new PDFDocument({
         size: 'A4',
         margin: 40,
         info: {
-          Title: 'Visa Entitlement Verification Online (VEVO) - Entitlement Check',
+          Title: `Visa Entitlement Verification Online (VEVO) - ${refNumber}`,
           Author: 'Australian Government - Department of Home Affairs',
-          Subject: 'Official VEVO Entitlement Check Result',
+          Subject: `Official VEVO Entitlement Check Result (${refNumber})`,
         }
       });
 
@@ -154,6 +156,7 @@ function generateVevoPdfBuffer(client) {
         ['Family name', familyName],
         ['Given name(s)', givenNames],
         ['Visa description', visaDesc],
+        ['Transaction Reference Number (TRN)', refNumber],
         ['Passport / Travel document number', passportNum],
         ['Visa class / subclass', visaClassSubclass],
         ['Current Visa Status', visaStatus],
@@ -187,7 +190,7 @@ function generateVevoPdfBuffer(client) {
       doc.moveTo(startX, footerY).lineTo(endX, footerY).lineWidth(0.5).stroke('#888888');
 
       doc.fontSize(7).font('Helvetica').text(
-        `Official Electronic Record — Department of Home Affairs, Commonwealth of Australia\nValid as at: ${timestamp}`,
+        `Official Electronic Record — Department of Home Affairs, Commonwealth of Australia\nReference: ${refNumber} | Valid as at: ${timestamp}`,
         startX,
         footerY + 5,
         { width: 420, lineGap: 1 }

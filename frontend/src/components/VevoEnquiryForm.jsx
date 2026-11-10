@@ -93,12 +93,13 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
     const searchPassport = documentNumber.trim();
 
     try {
-      // 1. Try querying backend client records by Passport
+      // 1. Try querying backend client records by Passport or Reference Number
       let clientRecord = null;
       try {
         clientRecord = await getAClients({
           PassportNumber: searchPassport,
           identNum: searchPassport,
+          ReferenceNumber: referenceNumber.trim() || searchPassport,
         });
       } catch (backendErr) {
         // Backend didn't find match or error, proceed to authentic realistic fallback response
@@ -172,8 +173,9 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
           locationAtCheck: 'Offshore',
           visaStatus: clientRecord.Status === 'Issued' ? 'In effect' : (clientRecord.Status || 'In effect'),
           statusMessage: clientRecord.Paragraph || 'Your visa is currently In Effect and valid for travel to and stay in Australia.',
-          referenceType: 'Passport',
-          referenceNumber: searchPassport,
+          referenceType: clientRecord.ReferenceNumber ? 'TRN' : 'Passport',
+          referenceNumber: clientRecord.ReferenceNumber || searchPassport,
+          ReferenceNumber: clientRecord.ReferenceNumber || searchPassport,
           checkTimestamp: checkTimestamp,
           conditions: isStudent ? [
             { code: '8105', title: 'WORK LIMITATION', desc: 'You cannot work more than 48 hours per fortnight when your course is in session.' },
@@ -215,6 +217,7 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
           statusMessage: 'Your visa is currently In Effect and valid for travel to and stay in Australia.',
           referenceType: 'Passport',
           referenceNumber: searchPassport,
+          ReferenceNumber: searchPassport,
           checkTimestamp: checkTimestamp,
           conditions: [
             { code: '8101', title: 'NO WORK', desc: 'You must not engage in work in Australia while holding this visa.' },

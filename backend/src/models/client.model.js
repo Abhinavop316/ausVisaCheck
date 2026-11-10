@@ -51,6 +51,12 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  ReferenceNumber: {
+    type: String,
+    unique: true,
+    sparse: true,
+    trim: true,
+  },
   Status: {
     type: String,
     enum: ["Pending" , "Revoked" , "Refused" , "Issued"],

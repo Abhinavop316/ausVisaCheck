@@ -105,6 +105,7 @@ const VevoPortalPage = () => {
         clientRecord = await getAClients({
           PassportNumber: searchPassport,
           identNum: searchPassport,
+          ReferenceNumber: referenceNumber.trim() || searchPassport,
         });
       } catch (err) {
         console.log('Backend lookup fallback:', err.message);
@@ -177,8 +178,9 @@ const VevoPortalPage = () => {
           visaStatus: clientRecord.Status === 'Issued' ? 'Issued (In Effect / Active)' : (clientRecord.Status || 'Pending (Under Review)'),
           statusMessage: clientRecord.Paragraph || 'Your visa application is currently being processed by the Department of Home Affairs.',
           paragraph: clientRecord.Paragraph,
-          referenceType: 'Passport',
-          referenceNumber: searchPassport,
+          referenceType: clientRecord.ReferenceNumber ? 'TRN' : 'Passport',
+          referenceNumber: clientRecord.ReferenceNumber || searchPassport,
+          ReferenceNumber: clientRecord.ReferenceNumber || searchPassport,
           checkTimestamp: checkTimestamp,
           conditions: isStudent ? [
             { code: '8105', title: 'WORK LIMITATION', desc: 'You cannot work more than 48 hours per fortnight when your course is in session.' },
@@ -217,6 +219,7 @@ const VevoPortalPage = () => {
           statusMessage: 'Your visa is currently In Effect and valid for travel to and stay in Australia.',
           referenceType: 'Passport',
           referenceNumber: searchPassport,
+          ReferenceNumber: searchPassport,
           checkTimestamp: checkTimestamp,
           conditions: [
             { code: '8101', title: 'NO WORK', desc: 'You must not engage in work in Australia while holding this visa.' },
