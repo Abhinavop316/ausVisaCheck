@@ -193,7 +193,7 @@ function EditAppplication({ onOpenFaq }) {
         FullName: fullName,
         FamilyName: surname,
         GivenNames: given,
-        ReferenceNumber: (formData.ReferenceNumber || selectedClient.ReferenceNumber || "").trim().toUpperCase(),
+        ReferenceNumber: (formData.ReferenceNumber !== undefined ? formData.ReferenceNumber : "").trim().toUpperCase(),
         Documents: [...selectedDocs, ...customDocs],
       };
       const updated = await updateClient(selectedClient._id, payload);
@@ -367,14 +367,32 @@ function EditAppplication({ onOpenFaq }) {
                 <label htmlFor="editReference">
                   Transaction Reference Number (TRN) <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: "normal" }}>(Unique Reference)</span>
                 </label>
-                <input
-                  id="editReference"
-                  type="text"
-                  value={formData.ReferenceNumber || selectedClient.ReferenceNumber || ""}
-                  onChange={(e) => handleChange("ReferenceNumber", e.target.value.toUpperCase())}
-                  placeholder="Automated Reference (e.g. EGOR949448)"
-                  style={{ fontFamily: "monospace", textTransform: "uppercase", fontWeight: "bold", color: "#002B49" }}
-                />
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <input
+                    id="editReference"
+                    type="text"
+                    value={formData.ReferenceNumber}
+                    onChange={(e) => handleChange("ReferenceNumber", e.target.value.toUpperCase())}
+                    placeholder="Enter custom reference or leave blank"
+                    style={{ flex: 1, fontFamily: "monospace", textTransform: "uppercase", fontWeight: "bold", color: "#002B49" }}
+                  />
+                  <button
+                    type="button"
+                    className="outline-button"
+                    style={{ padding: "6px 12px", fontSize: "0.82rem", whiteSpace: "nowrap" }}
+                    onClick={() => {
+                      const chars = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+                      let randomPart = "";
+                      for (let i = 0; i < 6; i++) {
+                        randomPart += chars[Math.floor(Math.random() * chars.length)];
+                      }
+                      handleChange("ReferenceNumber", `EGOR${randomPart}`);
+                    }}
+                    title="Generate a new unique reference code"
+                  >
+                    🎲 Generate
+                  </button>
+                </div>
               </div>
 
               <div className="form-group">

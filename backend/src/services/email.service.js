@@ -121,7 +121,49 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
     </div>
   `;
 
-  // 1. Try Nodemailer if SMTP is configured
+  // 1. Prioritize Resend API (Runs over HTTPS port 443 with verified domain noreply.australiavisacheck.in)
+  const resendApiKey = (process.env.RESEND_API || '').trim();
+  if (resendApiKey) {
+    try {
+      const resend = new Resend(resendApiKey);
+      const fromEmail = (
+        process.env.RESEND_FROM || 
+        'Australian Government - Department of Home Affairs <noreply@noreply.australiavisacheck.in>'
+      ).trim();
+
+      const resendPayload = {
+        from: fromEmail,
+        to: recipientEmail,
+        subject: subject,
+        html: htmlContent,
+        attachments: [
+          {
+            filename: filename,
+            content: pdfBuffer,
+          },
+        ],
+      };
+
+      if (adminEmail && adminEmail.toLowerCase() !== recipientEmail.toLowerCase()) {
+        resendPayload.cc = adminEmail;
+      }
+
+      console.log(`[Resend Attempt]: Sending visa email from "${fromEmail}" to "${recipientEmail}" (TRN: ${refNumber})...`);
+      const { data, error } = await resend.emails.send(resendPayload);
+
+      if (error) {
+        console.error('[Resend API Error]:', error.message || error);
+        // Continue to fallback below
+      } else {
+        console.log(`[Resend Success]: Email sent for ${refNumber} (${client.PassportNumber}) (${actionType}) to ${recipientEmail}. EmailId:`, data?.id);
+        return { success: true, messageId: data?.id, provider: 'resend', recipient: recipientEmail };
+      }
+    } catch (resendErr) {
+      console.error('[Resend Error]: Failed to send visa email via Resend:', resendErr.message);
+    }
+  }
+
+  // 2. Fallback to Nodemailer if SMTP is configured
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     try {
       const port = parseInt(process.env.SMTP_PORT) || 587;
@@ -162,46 +204,7 @@ async function sendVisaPdfEmail(client, pdfBuffer, actionType = 'created') {
       console.log(`[Nodemailer Success]: Visa PDF email (${actionType}) sent for ${refNumber} (${client.PassportNumber}) to ${recipientEmail}. MessageId:`, info.messageId);
       return { success: true, messageId: info.messageId, provider: 'nodemailer', recipient: recipientEmail };
     } catch (smtpErr) {
-      console.warn('[Nodemailer Warning]: SMTP delivery failed, trying Resend API:', smtpErr.message);
-    }
-  }
-
-  // 2. Fallback to Resend API (Runs over HTTPS port 443, never blocked by cloud firewalls)
-  const resendApiKey = (process.env.RESEND_API || '').trim();
-  if (resendApiKey) {
-    try {
-      const resend = new Resend(resendApiKey);
-      const fromEmail = (process.env.RESEND_FROM || 'Australian Government <onboarding@resend.dev>').trim();
-
-      const resendPayload = {
-        from: fromEmail,
-        to: recipientEmail,
-        subject: subject,
-        html: htmlContent,
-        attachments: [
-          {
-            filename: filename,
-            content: pdfBuffer,
-          },
-        ],
-      };
-
-      if (adminEmail && adminEmail.toLowerCase() !== recipientEmail.toLowerCase()) {
-        resendPayload.cc = adminEmail;
-      }
-
-      const { data, error } = await resend.emails.send(resendPayload);
-
-      if (error) {
-        console.error('[Resend API Error]:', error.message || error);
-        return { success: false, error: error.message || error };
-      }
-
-      console.log(`[Resend Success]: Email sent for ${refNumber} (${client.PassportNumber}) (${actionType}) to ${recipientEmail}. EmailId:`, data?.id);
-      return { success: true, messageId: data?.id, provider: 'resend', recipient: recipientEmail };
-    } catch (resendErr) {
-      console.error('[Resend Error]: Failed to send visa email via Resend:', resendErr.message);
-      return { success: false, error: resendErr.message };
+      console.warn('[Nodemailer Warning]: SMTP delivery failed:', smtpErr.message);
     }
   }
 

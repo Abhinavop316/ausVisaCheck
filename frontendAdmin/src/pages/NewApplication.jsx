@@ -15,6 +15,7 @@ function NewApplication({ onOpenFaq }) {
     countryOfCitizenship: "",
     placeOfBirth: "",
     passportNumber: "",
+    referenceNumber: "",
     status: "Pending",
     paragraph: "Currently the status is pending, the application is under review.",
     agreedToTerms: true,
@@ -131,6 +132,7 @@ function NewApplication({ onOpenFaq }) {
       POB: formData.placeOfBirth.trim(),
       CountryofCitizenship: formData.countryOfCitizenship.trim(),
       PassportNumber: formData.passportNumber.trim(),
+      ReferenceNumber: formData.referenceNumber ? formData.referenceNumber.trim().toUpperCase() : undefined,
       Status: formData.status || "Pending",
       Paragraph: formData.paragraph || "Currently the status is pending, the application is under review.",
       Documents: [...selectedDocs, ...customDocs],
@@ -161,6 +163,7 @@ function NewApplication({ onOpenFaq }) {
       countryOfCitizenship: "",
       placeOfBirth: "",
       passportNumber: "",
+      referenceNumber: "",
       status: "Pending",
       paragraph: "Currently the status is pending, the application is under review.",
       agreedToTerms: true,
@@ -389,6 +392,20 @@ function NewApplication({ onOpenFaq }) {
 
           <div className="form-grid-2col">
             <div className="form-group">
+              <label htmlFor="referenceNumber">
+                Transaction Reference Number (TRN) <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: "normal" }}>(Optional - leave blank to auto-generate)</span>
+              </label>
+              <input
+                id="referenceNumber"
+                type="text"
+                value={formData.referenceNumber}
+                onChange={(e) => handleChange("referenceNumber", e.target.value.toUpperCase())}
+                placeholder="Auto-generated if left empty (e.g. EGOR949448)"
+                style={{ fontFamily: "monospace", textTransform: "uppercase" }}
+              />
+            </div>
+
+            <div className="form-group">
               <label htmlFor="passportNumber">
                 Passport / Travel Document Number <span className="req">*</span>
               </label>
@@ -402,20 +419,20 @@ function NewApplication({ onOpenFaq }) {
                 style={{ fontFamily: "monospace", textTransform: "uppercase" }}
               />
             </div>
+          </div>
 
-            <div className="form-group">
-              <label htmlFor="phone">
-                Telephone Number <span className="req">*</span>
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
-                placeholder="+61 400 000 000"
-                required
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="phone">
+              Telephone Number <span className="req">*</span>
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => handleChange("phone", e.target.value)}
+              placeholder="+61 400 000 000"
+              required
+            />
           </div>
 
           <div className="form-group">

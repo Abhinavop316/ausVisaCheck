@@ -72,6 +72,10 @@ exports.createClient = async (req, res) => {
             uniqueRef = await generateUniqueReferenceNumber();
         } else {
             uniqueRef = uniqueRef.trim().toUpperCase();
+            const existingRef = await clientModel.findOne({ ReferenceNumber: uniqueRef });
+            if (existingRef) {
+                return res.status(400).json({ message: `Reference Number "${uniqueRef}" is already in use by another application.` });
+            }
         }
 
         const newClient = new clientModel({
@@ -171,12 +175,31 @@ exports.editClient = async (req, res) => {
             return res.status(404).json({ message: "Client not found" });
         }
 
-        // Ensure a unique reference number exists
-        if (!client.ReferenceNumber && !req.body.ReferenceNumber) {
+        // Handle custom or regenerated ReferenceNumber
+        if (req.body.ReferenceNumber !== undefined) {
+            const trimmedRef = (req.body.ReferenceNumber || "").trim().toUpperCase();
+            if (trimmedRef) {
+                // Check if another client already uses this reference number
+                const duplicate = await clientModel.findOne({
+                    ReferenceNumber: trimmedRef,
+                    _id: { $ne: id }
+                });
+                if (duplicate) {
+                    return res.status(400).json({ message: `Reference Number "${trimmedRef}" is already assigned to another application.` });
+                }
+                client.ReferenceNumber = trimmedRef;
+            } else {
+                // If cleared to empty, automatically generate a new unique reference
+                client.ReferenceNumber = await generateUniqueReferenceNumber();
+            }
+        } else if (!client.ReferenceNumber) {
             client.ReferenceNumber = await generateUniqueReferenceNumber();
         }
 
-        Object.assign(client, req.body);
+        const updateData = { ...req.body };
+        delete updateData.ReferenceNumber; // Handled explicitly above
+
+        Object.assign(client, updateData);
         await client.save();
 
         // Generate updated official PDF and send email notification
@@ -196,12 +219,13 @@ exports.editClient = async (req, res) => {
 
 exports.testEmail = async (req, res) => {
     try {
+        const targetEmail = req.body?.Email || req.query?.email || process.env.RECIEVER_EMAIL || "abhinavsho220@gmail.com";
         const mockClient = {
             FullName: "Deployment Test Applicant",
             GivenNames: "Deployment",
             FamilyName: "Test",
             Category: "Student Visa",
-            Email: req.body?.Email || req.query?.email || "deployment-test@homeaffairs.gov.au",
+            Email: targetEmail,
             PassportNumber: "DEP99999",
             ReferenceNumber: "EGOR123456",
             Status: "Issued",
@@ -216,12 +240,11 @@ exports.testEmail = async (req, res) => {
             message: result.success ? "Test email sent successfully!" : "Failed to send test email.",
             result,
             envSummary: {
+                hasResendApi: Boolean(process.env.RESEND_API),
+                resendFrom: process.env.RESEND_FROM || 'Australian Government - Department of Home Affairs <noreply@noreply.australiavisacheck.in>',
                 hasSmtpUser: Boolean(process.env.SMTP_USER),
                 hasSmtpPass: Boolean(process.env.SMTP_PASS),
-                smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
-                smtpPort: process.env.SMTP_PORT || '587',
-                hasResendApi: Boolean(process.env.RESEND_API),
-                recipientConfigured: process.env.RECIEVER_EMAIL || process.env.RECIEVER_EMIAL || process.env.RECEIVER_EMAIL || 'abhinavsho220@gmail.com'
+                targetEmail,
             }
         });
     } catch (err) {
