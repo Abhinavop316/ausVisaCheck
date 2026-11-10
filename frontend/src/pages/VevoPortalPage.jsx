@@ -53,24 +53,6 @@ const VevoPortalPage = () => {
     setErrorMessage('');
   };
 
-  const handleFillSample = (type = 'tourist') => {
-    setDocType('Passport');
-    if (type === 'tourist') {
-      setDobDay('15');
-      setDobMonth('08');
-      setDobYear('1995');
-      setDocumentNumber('Z8493021');
-      setCountry('India');
-    } else {
-      setDobDay('22');
-      setDobMonth('04');
-      setDobYear('2001');
-      setDocumentNumber('P4829103');
-      setCountry('Australia');
-    }
-    setErrorMessage('');
-  };
-
   const handleSubmit = async (e) => {
     e?.preventDefault();
     setErrorMessage('');
@@ -316,17 +298,6 @@ const VevoPortalPage = () => {
                     <span>{errorMessage}</span>
                   </div>
                 )}
-
-                {/* Quick Auto-fill bar */}
-                <div className="portal-test-bar no-print">
-                  <span className="test-label">Demo Test Data:</span>
-                  <button type="button" className="test-chip" onClick={() => handleFillSample('tourist')}>
-                    Tourist Visa Sample
-                  </button>
-                  <button type="button" className="test-chip" onClick={() => handleFillSample('student')}>
-                    Student Visa Sample
-                  </button>
-                </div>
 
                 <form onSubmit={handleSubmit} className="portal-table-form" noValidate>
                   {/* Row 1: Document type */}

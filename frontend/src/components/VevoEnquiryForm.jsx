@@ -28,31 +28,6 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Pre-fill realistic sample data for instant demonstration
-  const handleFillDemo = (type = 'tourist') => {
-    if (type === 'tourist') {
-      setDocType('Passport');
-      setReferenceType('TRN');
-      setReferenceNumber('EGOR949448');
-      setDobDay('15');
-      setDobMonth('08');
-      setDobYear('1995');
-      setDocumentNumber('Z8493021');
-      setCountry('India');
-      setAgreedTerms(true);
-      setErrorMessage('');
-    } else if (type === 'student') {
-      setDocType('Passport');
-      setDobDay('22');
-      setDobMonth('04');
-      setDobYear('2001');
-      setDocumentNumber('P4829103');
-      setCountry('Australia');
-      setAgreedTerms(true);
-      setErrorMessage('');
-    }
-  };
-
   const handleClear = () => {
     setReferenceNumber('');
     setDobDay('');
@@ -274,27 +249,6 @@ const VevoEnquiryForm = ({ onCheckSuccess, onOpenTerms, onOpenHelp }) => {
               Check your own Australian visa details and conditions in Visa Entitlement Verification Online (VEVO)
             </p>
           </div>
-        </div>
-
-        {/* Quick Demo Pre-fill Pill Bar */}
-        <div className="demo-fill-bar no-print">
-          <span className="demo-label">Quick Test:</span>
-          <button 
-            type="button" 
-            className="demo-btn" 
-            onClick={() => handleFillDemo('tourist')}
-            title="Auto-fill Visitor Visa sample data"
-          >
-            Tourist Visa 500
-          </button>
-          <button 
-            type="button" 
-            className="demo-btn" 
-            onClick={() => handleFillDemo('student')}
-            title="Auto-fill Student Visa sample data"
-          >
-            Student Visa 600
-          </button>
         </div>
       </div>
 
